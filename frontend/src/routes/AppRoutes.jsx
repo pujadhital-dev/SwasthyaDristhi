@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
+import Signup from '../pages/Signup'
 import ComingSoon from '../pages/ComingSoon'
 
 export default function AppRoutes() {
@@ -9,7 +10,7 @@ export default function AppRoutes() {
       {/* Public */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<ComingSoon title="Patient Sign Up" />} />
+      <Route path="/signup" element={<Signup />} />
 
       {/* Dashboards: placeholders until they are built */}
       <Route path="/patient/dashboard" element={<ComingSoon title="Patient Dashboard" />} />
