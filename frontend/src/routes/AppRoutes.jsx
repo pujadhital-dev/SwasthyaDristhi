@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import Signup from '../pages/Signup'
-import ComingSoon from '../pages/ComingSoon'
+import Home from '../pages/landing/Home'
+import Login from '../pages/auth/Login'
+import Signup from '../pages/auth/Signup'
+import ComingSoon from '../pages/common/ComingSoon'
 
 export default function AppRoutes() {
   return (

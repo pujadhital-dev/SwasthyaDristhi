@@ -1,53 +1,84 @@
 @import 'tailwindcss';
 
-/* ===== SwasthyaDrishti theme ===== */
+/* ===== SwasthyaDrishti theme =====
+   Brand: trust blue (primary) + deep navy (dark surfaces) + clinical emerald (health / success).
+   Neutrals use Tailwind's built-in slate scale; alerts use rose / amber. */
 @theme {
-  --color-primary: #0e6e78;      /* Deep Clinical Teal – navbar, sidebar, primary buttons, branding */
-  --color-primary-dark: #0a535b;
-  --color-secondary: #1f7f89;    /* Medium Teal – secondary buttons, cards, selected states */
-  --color-accent: #3fb5a8;       /* Mint Teal – highlights, icons, AI accents */
-  --color-accent-light: #bfe6e1; /* Soft Mint – soft backgrounds, info panels */
-  --color-light: #f2f8f9;        /* Very light blue-grey page background */
-  --color-ink: #12313a;          /* Main text */
-  --color-muted: #5a6f76;        /* Secondary text */
-  --color-line: #d8e6e9;         /* Borders */
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dbe6fe;
+  --color-brand-200: #bfd3fe;
+  --color-brand-300: #93b4fd;
+  --color-brand-400: #608bfa;
+  --color-brand-500: #3b67f5;
+  --color-brand-600: #2449e0;
+  --color-brand-700: #1d39c4;
+  --color-brand-800: #1d329e;
+  --color-brand-900: #1c2f7c;
+  --color-brand-950: #0b1437;
 
-  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --shadow-card: 0 8px 24px rgba(14, 110, 120, 0.12);
+  --color-health-50: #ecfdf6;
+  --color-health-100: #d1fae9;
+  --color-health-400: #34d3a0;
+  --color-health-500: #10b981;
+  --color-health-600: #059669;
+  --color-health-700: #047857;
+
+  --font-sans: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 8px 24px -6px rgb(15 23 42 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.04), 0 24px 48px -12px rgb(29 57 196 / 0.22);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
 
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-white font-sans text-slate-900 antialiased;
   }
 
   :focus-visible {
-    @apply outline-3 outline-offset-2 outline-accent;
+    @apply outline-2 outline-offset-2 outline-brand-500;
   }
 }
 
-/* Reusable button styles */
 @layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
+  }
+
   .btn {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-[10px] border-2 border-transparent px-5 py-2.5 text-[0.95rem] font-semibold transition active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60;
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-transparent px-5 py-2.5 text-sm font-semibold whitespace-nowrap transition duration-150 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-lg {
+    @apply px-6 py-3 text-[0.95rem];
   }
   .btn-primary {
-    @apply bg-primary text-white hover:bg-primary-dark;
+    @apply bg-brand-600 text-white shadow-sm shadow-brand-600/25 hover:bg-brand-700;
   }
   .btn-secondary {
-    @apply bg-secondary text-white hover:bg-primary;
+    @apply border-slate-300 bg-white text-slate-800 hover:border-slate-400 hover:bg-slate-50;
   }
-  .btn-outline {
-    @apply border-white/70 bg-transparent text-white hover:bg-white/10;
+  .btn-white {
+    @apply bg-white text-brand-800 hover:bg-brand-50;
   }
-  .btn-ghost {
-    @apply border-primary/30 bg-white text-primary hover:border-primary hover:bg-white;
+  .btn-outline-white {
+    @apply border-white/30 text-white hover:border-white/60 hover:bg-white/10;
   }
-  .btn-light {
-    @apply bg-white text-primary hover:bg-light;
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-bold tracking-[0.16em] text-brand-600 uppercase;
+  }
+
+  .input {
+    @apply w-full rounded-lg border bg-white px-3.5 py-2.5 text-[0.95rem] text-slate-900 shadow-xs transition placeholder:text-slate-400 focus:ring-4 focus:outline-none;
+  }
+  .input-ok {
+    @apply border-slate-300 focus:border-brand-500 focus:ring-brand-500/15;
+  }
+  .input-error {
+    @apply border-rose-300 focus:border-rose-400 focus:ring-rose-500/15;
   }
 }
