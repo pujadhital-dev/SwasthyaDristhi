@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom'
-import Logo from '../../components/common/Logo'
 import Icon from '../../components/common/Icon'
+import logo from '../../assets/logo.jpeg'
 
 // Temporary placeholder for pages that are not built yet (dashboards).
 export default function ComingSoon({ title }) {
   return (
     <div className="grid min-h-screen place-items-center bg-linear-to-b from-brand-50 to-white p-6 text-center">
       <div className="max-w-md">
-        <Logo />
+        <Link to="/" aria-label="SwasthyaDrishti home" className="inline-block">
+          <img src={logo} alt="SwasthyaDrishti" className="h-9 w-auto" />
+        </Link>
         <span className="mx-auto mt-10 grid size-14 place-items-center rounded-2xl bg-brand-100 text-brand-600">
           <Icon name="clock" className="size-7" />
         </span>

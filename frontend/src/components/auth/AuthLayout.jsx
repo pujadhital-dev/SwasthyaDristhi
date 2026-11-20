@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import Logo from '../common/Logo'
 import Icon from '../common/Icon'
+import logo from '../../assets/logo.jpeg'
+
 
 // Split-screen layout shared by Login and Signup.
 export default function AuthLayout({ title, subtitle, points, note, children }) {
@@ -13,10 +14,14 @@ export default function AuthLayout({ title, subtitle, points, note, children }) 
           <div className="absolute -bottom-40 -left-20 size-[26rem] rounded-full bg-health-500/20 blur-3xl" />
         </div>
 
-        <div className="sticky top-0 flex h-screen flex-col justify-between p-12 xl:p-16">
-          <Logo light />
+        <div className="sticky top-0 flex h-screen flex-col p-12 xl:p-16">
+          <div className="relative">
+            <Link to="/" aria-label="SwasthyaDrishti home" className="inline-block">
+              <img src={logo} alt="SwasthyaDrishti" className="h-9 w-auto" />
+            </Link>
+          </div>
 
-          <div className="relative max-w-md">
+          <div className="relative my-auto max-w-md">
             <h1 className="text-4xl leading-tight font-bold tracking-tight xl:text-5xl">{title}</h1>
             <p className="mt-4 text-lg text-slate-300">{subtitle}</p>
             <ul className="mt-10 space-y-4">
@@ -40,13 +45,15 @@ export default function AuthLayout({ title, subtitle, points, note, children }) 
 
       <main className="flex flex-col bg-white">
         <div className="flex items-center justify-between px-6 py-5 sm:px-10">
-          <div className="lg:hidden">
-            <Logo />
-          </div>
-          <Link to="/" className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-900">
+          <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-900">
             <Icon name="arrowRight" className="size-4 rotate-180" />
             Back to home
           </Link>
+          <div className="lg:hidden">
+            <Link to="/" aria-label="SwasthyaDrishti home" className="shrink-0">
+              <img src={logo} alt="SwasthyaDrishti" className="h-9 w-auto" />
+            </Link>
+          </div>
         </div>
         <div className="flex flex-1 items-center justify-center px-6 pb-12 sm:px-10">{children}</div>
       </main>

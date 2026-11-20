@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../common/Logo'
 import Icon from '../common/Icon'
+import logo from '../../assets/logo.jpeg'
 
 const navLinks = [
   { href: '#features', label: 'Features' },
@@ -29,7 +29,9 @@ export default function Navbar() {
       }`}
     >
       <div className="container-page flex h-16 items-center justify-between gap-6 md:h-18">
-        <Logo />
+        <Link to="/" aria-label="SwasthyaDrishti home" className="shrink-0">
+          <img src={logo} alt="SwasthyaDrishti" className="h-10 w-auto" />
+        </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => (

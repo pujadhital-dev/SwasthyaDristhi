@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import Logo from '../common/Logo'
 import Icon from '../common/Icon'
+import logo from '../../assets/logo.jpeg'
 
 const YEAR = new Date().getFullYear()
 
@@ -39,7 +39,9 @@ export default function Footer() {
     <footer className="bg-slate-950 text-slate-300">
       <div className="container-page grid gap-12 py-16 md:grid-cols-[1.6fr_repeat(3,1fr)]">
         <div className="max-w-sm">
-          <Logo light />
+          <Link to="/" aria-label="SwasthyaDrishti home" className="inline-block">
+            <img src={logo} alt="SwasthyaDrishti" className="h-9 w-auto" />
+          </Link>
           <p className="mt-4 text-sm leading-relaxed text-slate-400">
             An AI-powered clinical assistant that gives patients and doctors a clear, organized view of
             every medical history.
