@@ -12,11 +12,7 @@ const faqs = [
   },
   {
     q: 'Who can see my medical records?',
-    a: 'Only you and the doctors involved in your care. Access is controlled by role, and administrators manage accounts without reading clinical content.',
-  },
-  {
-    q: 'How do doctors get an account?',
-    a: 'Doctor accounts are created and verified by the system administrator. Patients can sign up on their own for free.',
+    a: 'Only you and the doctors involved in your care. Access is controlled by role, so each person sees only what they need.',
   },
   {
     q: 'What does a risk flag mean?',
@@ -32,7 +28,7 @@ export default function Faq() {
           align="left"
           eyebrow="FAQ"
           title="Questions, answered"
-          description="Can’t find what you are looking for? Reach out to your hospital administrator or our support team."
+          description="Can’t find what you are looking for? Reach out to the SwasthyaDrishti support team."
         />
 
         <div className="divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">

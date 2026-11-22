@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthLayout from '../../components/auth/AuthLayout'
+import Icon from '../../components/common/Icon'
 import { login, getDashboardPath } from '../../services/authService'
 
 const points = [
@@ -11,7 +12,10 @@ const points = [
 
 export default function Login() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ email: '', password: '' })
+  const location = useLocation()
+  // Set after email verification or a password reset
+  const notice = location.state?.notice
+  const [form, setForm] = useState({ email: location.state?.email || '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -44,11 +48,18 @@ export default function Login() {
       title="Welcome back"
       subtitle="Log in to view your medical timeline, review patient cases or manage your care plan."
       points={points}
-      note="Patients, doctors and administrators use the same secure login."
+      note="Patients, doctors and the Super Admin use the same secure login."
     >
       <form onSubmit={handleSubmit} noValidate className="w-full max-w-sm">
         <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Log in to your account</h2>
         <p className="mt-2 text-slate-500">Enter your details to continue.</p>
+
+        {notice && !error && (
+          <div role="status" className="mt-6 flex items-start gap-2.5 rounded-lg border border-health-100 bg-health-50 px-3.5 py-3 text-sm text-health-700">
+            <Icon name="checkCircle" className="mt-px size-5 flex-none" />
+            {notice}
+          </div>
+        )}
 
         {error && (
           <div role="alert" className="mt-6 flex gap-2.5 rounded-lg border border-rose-200 bg-rose-50 px-3.5 py-3 text-sm text-rose-700">
@@ -67,6 +78,7 @@ export default function Login() {
               type="email"
               autoComplete="email"
               placeholder="you@example.com"
+              autoFocus={!form.email}
               value={form.email}
               onChange={handleChange}
               required
@@ -79,9 +91,13 @@ export default function Login() {
               <label htmlFor="password" className="text-sm font-medium text-slate-700">
                 Password
               </label>
-              <a href="#" className="text-sm font-medium text-brand-600 hover:text-brand-700">
+              <Link
+                to="/forgot-password"
+                state={{ email: form.email }}
+                className="text-sm font-medium text-brand-600 hover:text-brand-700"
+              >
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <div className="relative">
               <input
@@ -90,6 +106,7 @@ export default function Login() {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 placeholder="Enter your password"
+                autoFocus={Boolean(form.email)}
                 value={form.password}
                 onChange={handleChange}
                 required
@@ -117,7 +134,7 @@ export default function Login() {
             Create an account
           </Link>
         </p>
-        <p className="mt-2 text-center text-xs text-slate-400">Doctor accounts are created by the administrator.</p>
+        <p className="mt-2 text-center text-xs text-slate-400">Doctor accounts are created by the Super Admin.</p>
       </form>
     </AuthLayout>
   )

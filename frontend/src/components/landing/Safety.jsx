@@ -20,7 +20,7 @@ const principles = [
   {
     icon: 'users',
     title: 'Role-based access',
-    text: 'Patients, doctors and administrators each see only what their role allows.',
+    text: 'Every user sees only what their role allows.',
   },
 ]
 

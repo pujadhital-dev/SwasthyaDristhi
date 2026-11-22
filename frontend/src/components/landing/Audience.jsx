@@ -72,7 +72,6 @@ export default function Audience() {
                 Doctor login
                 <Icon name="arrowRight" className="size-4" />
               </Link>
-              <p className="mt-3 text-sm text-slate-400">Doctor accounts are created by the hospital administrator.</p>
             </div>
           </article>
         </div>

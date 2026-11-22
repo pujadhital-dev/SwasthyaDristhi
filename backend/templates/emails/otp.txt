@@ -1,0 +1,10 @@
+Hello{% if name %} {{ name }}{% endif %},
+
+{% if is_reset %}We received a request to reset your SwasthyaDrishti password.{% else %}Thank you for registering with SwasthyaDrishti.{% endif %}
+
+Your code is: {{ code }}
+
+It expires in {{ minutes }} minutes. Do not share this code with anyone.
+{% if is_reset %}If you did not ask to reset your password, you can ignore this email.{% else %}If you did not create an account, you can ignore this email.{% endif %}
+
+SwasthyaDrishti

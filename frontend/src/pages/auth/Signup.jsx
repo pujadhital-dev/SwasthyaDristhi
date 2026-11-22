@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLayout from '../../components/auth/AuthLayout'
-import { register, getDashboardPath } from '../../services/authService'
+import PasswordStrength from '../../components/auth/PasswordStrength'
+import { register } from '../../services/authService'
 
 
 // Local date as YYYY-MM-DD (used as the max for date of birth)
@@ -25,19 +26,6 @@ const points = [
   { icon: 'shield', text: 'Only doctor-approved prescriptions' },
 ]
 
-// 0–4 score: length, lowercase+uppercase, number, symbol
-function passwordStrength(pw) {
-  if (!pw) return 0
-  let score = 0
-  if (pw.length >= 8) score++
-  if (/[a-z]/.test(pw) && /[A-Z]/.test(pw)) score++
-  if (/\d/.test(pw)) score++
-  if (/[^A-Za-z0-9]/.test(pw)) score++
-  return score
-}
-
-const strengthLabels = ['Too weak', 'Weak', 'Fair', 'Good', 'Strong']
-const strengthColors = ['bg-rose-500', 'bg-rose-500', 'bg-amber-500', 'bg-health-500', 'bg-health-600']
 
 function validate(form) {
   const e = {}
@@ -94,7 +82,6 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const strength = passwordStrength(form.password)
   const [today] = useState(todayISO)
 
   const handleChange = (e) => {
@@ -115,7 +102,7 @@ export default function Signup() {
 
     setLoading(true)
     try {
-      const user = await register({
+      const res = await register({
         first_name: form.first_name.trim(),
         last_name: form.last_name.trim(),
         email: form.email.trim().toLowerCase(),
@@ -124,7 +111,8 @@ export default function Signup() {
         gender: form.gender,
         password: form.password,
       })
-      navigate(getDashboardPath(user.role), { replace: true })
+      // The account is created after the emailed code is verified.
+      navigate('/verify-email', { state: { email: res.email, resendIn: res.resend_in } })
     } catch (err) {
       if (err.fields && Object.keys(err.fields).length) setErrors(err.fields)
       setFormError(err.message)
@@ -240,19 +228,7 @@ export default function Signup() {
                 </button>
               </div>
             </Field>
-            {form.password && (
-              <div className="mt-2 flex items-center gap-3" aria-live="polite">
-                <div className="grid flex-1 grid-cols-4 gap-1.5">
-                  {[1, 2, 3, 4].map((i) => (
-                    <span
-                      key={i}
-                      className={`h-1.5 rounded-full ${i <= strength ? strengthColors[strength] : 'bg-slate-200'}`}
-                    />
-                  ))}
-                </div>
-                <small className="w-16 text-right text-xs font-medium text-slate-500">{strengthLabels[strength]}</small>
-              </div>
-            )}
+            <PasswordStrength password={form.password} />
           </div>
 
           <div className="sm:col-span-2">
@@ -300,7 +276,7 @@ export default function Signup() {
             Log in
           </Link>
         </p>
-        <p className="mt-2 text-center text-xs text-slate-400">Doctor accounts are created by the administrator.</p>
+        <p className="mt-2 text-center text-xs text-slate-400">Doctor accounts are created by the Super Admin.</p>
       </form>
     </AuthLayout>
   )
